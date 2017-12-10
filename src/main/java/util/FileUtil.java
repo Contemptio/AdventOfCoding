@@ -11,14 +11,12 @@ import java.util.stream.Collectors;
 
 public final class FileUtil {
 
-    private FileUtil() {}
+    private FileUtil() {
+    }
 
-    public static List<List<String>> fileAsMatrix(File file)
-            throws IOException {
+    public static List<List<String>> fileAsMatrix(File file) throws IOException {
 
-        return fileAsLines(file).stream()
-                .map(line -> Arrays.asList(line.split("\\s+")))
-                .collect(Collectors.toList());
+        return fileAsLines(file).stream().map(line -> Arrays.asList(line.split("\\s+"))).collect(Collectors.toList());
     }
 
     public static List<String> fileAsLines(File file) throws IOException {
@@ -26,7 +24,10 @@ public final class FileUtil {
     }
 
     private static String fileAsString(File file) throws IOException {
-        return new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())),
-                StandardCharsets.UTF_8);
+        return new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())), StandardCharsets.UTF_8);
+    }
+
+    public static List<List<Integer>> fileAsIntegers(File file) throws IOException {
+        return StringUtil.parseIntegerMatrix(fileAsMatrix(file));
     }
 }
